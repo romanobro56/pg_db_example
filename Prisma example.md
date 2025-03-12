@@ -17,7 +17,7 @@ npx prisma migrate --dev "<migration_name>"
 {
     ...
   "dependencies": {
-    "@middle/database": "*",
+    "@{{project_name}}/database": "*",
   },
   ...
 }
