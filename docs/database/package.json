@@ -1,0 +1,22 @@
+{
+    "name": "@BugBounty/database",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+      "build": "tsc"
+    },
+    "author": "",
+    "license": "ISC",
+    "keywords": [],
+    "description": "",
+    "dependencies": {
+      "@prisma/client": "^6.1.0"
+    },
+    "devDependencies": {
+      "@types/node": "^22.10.2",
+      "prisma": "^6.1.0",
+      "typescript": "^5.7.2"
+    }
+  }
+  

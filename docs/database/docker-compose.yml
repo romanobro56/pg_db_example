@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env_file:
+      - ./.env.local
+
+  db-migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrate
+    image: '{{project_name}}-db-migrations:latest'
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env.local
+    networks:
+      - loadbalancing
+
+
+volumes:
+  pgdata:

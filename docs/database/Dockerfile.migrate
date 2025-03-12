@@ -1,0 +1,28 @@
+# File: Dockerfile.migrate
+FROM node:18-alpine
+
+WORKDIR /usr/app
+
+# Install OS dependencies needed for building node modules (if you have native deps)
+RUN apk add --no-cache python3 make g++
+
+ENV DATABASE_URL="postgresql://{{user}}:postgres@postgres:5432/{{database}}"
+
+# 1) Copy the root-level files
+COPY package.json package-lock.json ./
+
+# 2) Copy the database package code + prisma schema
+COPY packages/database/package.json packages/database/
+COPY packages/database/prisma packages/database/prisma
+
+# 3) Copy the .env.docker file into the container
+COPY .env.local ./.env.local
+
+# 4) Install Node dependencies
+RUN npm install
+
+# (Optional) Generate Prisma client ahead of time
+RUN npm run generate:docker
+
+# 5) Default command: run migrations
+CMD ["npm", "run", "migrate:docker"]
